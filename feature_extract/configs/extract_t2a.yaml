@@ -1,0 +1,32 @@
+# T2A feature extraction config
+# Reads a local CSV manifest with columns: id, audio_path, caption
+# Writes:
+#   <output.pth_dir>/<id>.pth   -> {"text_features": (77, 1024)}
+#   <output.csv_path>           -> id, audio_path, features_path, video_exist, text_exist
+#                                  (features_path auto-computed relative to csv_path)
+#
+# Run:
+#   bash run_extract_t2a.sh
+
+data:
+  csv_path: "/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/features/t2a_feature.csv"
+  data_root: "/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples"
+
+model:
+  clip_model_name: "ViT-H-14-378-quickgelu"
+  clip_pretrained: "/home/feiyanzhou/data/ext-weights/open_clip_pytorch_model.bin"
+
+output:
+  pth_dir: "/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/features/t2a"
+  csv_path: "/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/train_t2a.csv"
+
+extraction:
+  duration_sec: 8.0
+  target_sample_rate: 16000
+  batch_size: 16
+  num_workers: 2
+  save_interval: 64
+  seed: 14159265
+
+comm:
+  init_timeout_seconds: 1800

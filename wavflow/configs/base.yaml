@@ -1,0 +1,30 @@
+# Shared base config — params that MUST agree between training and inference.
+# Both train.yaml and infer.yaml reference this via:   _base_: base.yaml
+#
+# Anything that affects model architecture, on-disk tensor shapes, or
+# checkpoint compatibility belongs here. Everything else (csv path, batch
+# sizes, run-only knobs) goes in train.yaml or infer.yaml.
+
+model:
+  name: "medium_16k"          # one of: medium_16k, medium_44k, large_16k, large_44k
+  empty_string_ckpt: "/home/feiyanzhou/data/ext-weights/empty_string.pth"
+
+data:
+  audio_scale: 3.0            # token = wav (RMS-normed to 0.33) * audio_scale
+  target_sample_rate: 16000
+  audio_duration: 8.0
+  audio_dim: 200              # latent_dim per token; audio_seq_len is derived
+                              # as ceil(target_sample_rate * audio_duration / audio_dim)
+  clip_seq_len: 64
+  clip_dim: 1024
+  sync_seq_len: 192
+  sync_dim: 768
+  text_seq_len: 77
+  text_dim: 1024
+
+# FlowMatching settings used by both training (loss target) and inference (ODE).
+# Keep these consistent across runs of the same checkpoint.
+sampling:
+  prediction_type: "x"        # "x" (predict x1) or "v" (predict velocity)
+  noise_shift: 1.0            # >1 pushes timesteps toward noise end
+  min_sigma: 0.0

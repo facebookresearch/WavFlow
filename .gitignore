@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Logs / cache
+*.log
+wandb/
+.cache/
+
+# Model checkpoints — DO NOT COMMIT
+output/
+checkpoints/
+*.pth
+*.pt
+*.bin
+*.safetensors
+*.ckpt
+
+# But DO commit small example training-sample features (so users see data format)
+!training_samples/features/**/*.pth
+!training_samples/features/**/*.pt
+
+# Large data
+*.npy
+*.npz
+*.h5
+*.tar
+*.tar.gz
+*.zip
+
+# Internal Meta files (just in case)
+BUCK
+TARGETS

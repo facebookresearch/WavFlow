@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>WavFlow</title>
+
+    <link rel="icon" type="image/png" href="images/icon.png">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ============== TITLE HERO ============== -->
+    <div class="title-hero">
+        <div class="title-hero__inner">
+            <h1 class="title-hero__title">
+                <span class="metablue">WavFlow</span>: Flowing Through Waveforms<br>for Audio Generation
+            </h1>
+        </div>
+    </div>
+
+    <br>
+    <div class="container">
+
+        <div class="row text-center" style="font-size:24px">
+            <div class="col">
+                <!-- TODO: e.g. "Preprint 2026" -->
+            </div>
+        </div>
+        <br>
+
+        <div class="row text-center heavy justify-content-md-center" style="font-size:20px;">
+            <div class="col-sm-auto px-lg-2"><nobr><a href="https://zhoufeiyn.github.io/" target="_blank" rel="noopener">Feiyan Zhou<sup>1,2</sup></a></nobr></div>
+            <div class="col-sm-auto px-lg-2"><nobr><a href="https://www.luyuan.wang/" target="_blank" rel="noopener">Luyuan Wang<sup>1</sup></a></nobr></div>
+            <div class="col-sm-auto px-lg-2"><nobr><a href="https://www.shoufachen.com/" target="_blank" rel="noopener">Shoufa Chen<sup>1</sup></a></nobr></div>
+            <div class="col-sm-auto px-lg-2"><nobr><a href="https://wangzheallen.github.io/" target="_blank" rel="noopener">Zhe Wang<sup>1</sup></a></nobr></div>
+            <div class="col-sm-auto px-lg-2"><nobr><a href="https://johanan528.github.io/" target="_blank" rel="noopener">Zhiheng Liu<sup>1</sup></a></nobr></div>
+            <div class="col-sm-auto px-lg-2"><nobr><a href="https://yrcong.github.io/" target="_blank" rel="noopener">Yuren Cong<sup>1</sup></a></nobr></div>
+            <div class="col-sm-auto px-lg-2"><nobr><a href="https://www.linkedin.com/in/xiaohui-zhang-79569539" target="_blank" rel="noopener">Xiaohui Zhang<sup>1</sup></a></nobr></div>
+            <div class="col-sm-auto px-lg-2"><nobr><a href="https://www.linkedin.com/in/fanny-yang-035861128" target="_blank" rel="noopener">Fanny Yang<sup>1</sup></a></nobr></div>
+            <div class="col-sm-auto px-lg-2"><nobr><a href="https://www.linkedin.com/in/belindazeng" target="_blank" rel="noopener">Belinda Zeng<sup>1</sup></a></nobr></div>
+        </div>
+
+        <div class="row text-center heavy justify-content-md-center" style="font-size:20px; margin-top:24px;">
+            <div class="col-sm-auto px-lg-2 affiliation">
+                <sup>1</sup>Meta AI
+                <img src="images/meta.png" alt="Meta" class="affiliation-logo">
+            </div>
+            <div class="col-sm-auto px-lg-2 affiliation">
+                <sup>2</sup>Northeastern University
+                <img src="images/northeastern.png" alt="Northeastern University" class="affiliation-logo affiliation-logo--lg">
+            </div>
+        </div>
+
+        <br>
+
+        <!-- Link buttons -->
+        <div class="link-btns">
+            <a href="#" class="split-btn split-btn--paper" target="_blank" rel="noopener">
+                <span class="split-btn__left">Paper</span>
+                <span class="split-btn__right split-btn__right--paper">PDF</span>
+            </a>
+            <a href="https://github.com/facebookresearch/wavflow" class="split-btn split-btn--code" target="_blank" rel="noopener">
+                <span class="split-btn__left">GitHub</span>
+                <span class="split-btn__right split-btn__right--code">Code</span>
+            </a>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <!-- ============== ABSTRACT ============== -->
+        <div class="row text-center" style="font-size:32px">
+            <div class="col strong">Overview</div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <p class="abstract">
+                    Modern audio generation predominantly relies on latent-space compression,
+                    which introduces complexity and potential information loss.
+                    <span class="metablue strong">WavFlow</span> challenges this paradigm by
+                    generating high-fidelity audio directly in <b>raw waveform space</b>. By
+                    utilizing <b>waveform patchifying</b> and <b>amplitude lifting</b>,
+                    WavFlow enables stable flow matching via direct <i>x</i>-prediction,
+                    bypassing intermediate representations entirely. Achieving
+                    state-of-the-art results on <b>VGGSound</b> and <b>MovieGen-Audio</b>,
+                    WavFlow demonstrates that latent compression is not a prerequisite for
+                    high-quality synthesis, offering a simpler and more scalable alternative
+                    for multimodal generation.
+                </p>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col text-center">
+                <img src="images/overview.png" alt="WavFlow overview" class="overview-figure">
+            </div>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <!-- ============== METHOD ============== -->
+        <div class="row text-center" style="font-size:32px">
+            <div class="col strong">Method</div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col text-center">
+                <img src="images/Architecture.png" alt="WavFlow architecture" style="max-width:100%; height:auto;">
+            </div>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <!-- ============== DEMOS — sliding category tabs ============== -->
+        <div class="row text-center" style="font-size:32px">
+            <div class="col strong">Hear It Raw</div>
+        </div>
+        <br>
+        <p class="benchmark-subtitle">
+            We showcase six categories of common everyday Foley sounds synthesized by
+            <span class="metablue strong">WavFlow</span>. Click any video to experience
+            how our <b>raw-waveform (VAE-free)</b> model brings sound to life.
+        </p>
+
+        <!-- Tab buttons -->
+        <div class="tab-nav">
+            <button class="tab-btn" data-idx="0">🌿 Natural Sound</button>
+            <button class="tab-btn" data-idx="1">🐾 Animal Sound</button>
+            <button class="tab-btn" data-idx="2">🎵 Music</button>
+            <button class="tab-btn" data-idx="3">🚲 Transportation</button>
+            <button class="tab-btn" data-idx="4">🏂 Sports</button>
+            <button class="tab-btn" data-idx="5">🔨 Daily Action</button>
+        </div>
+
+        <!-- Sliding viewport -->
+        <div class="slider-viewport">
+            <button class="slider-arrow slider-prev" aria-label="Previous">&#10094;</button>
+            <button class="slider-arrow slider-next" aria-label="Next">&#10095;</button>
+
+            <div class="slider-track">
+
+                <!-- ===== Panel 0: Natural ===== -->
+                <div class="slider-panel">
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <div class="video-header">Forest</div>
+                            <video controls preload="metadata"><source src="videos/demo/0_natural_1_forest.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Rain</div>
+                            <video controls preload="metadata"><source src="videos/demo/0_natural_2_rain.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Thunder</div>
+                            <video controls preload="metadata"><source src="videos/demo/0_natural_3_thunder.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Fire</div>
+                            <video controls preload="metadata"><source src="videos/demo/0_natural_4_volcano.mp4" type="video/mp4"></video>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Panel 1: Animal ===== -->
+                <div class="slider-panel">
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <div class="video-header">Frog</div>
+                            <video controls preload="metadata"><source src="videos/demo/1_animal_1_frog.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Cat</div>
+                            <video controls preload="metadata"><source src="videos/demo/1_animal_2_cat.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Duck</div>
+                            <video controls preload="metadata"><source src="videos/demo/1_animal_2_duck.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Wolf</div>
+                            <video controls preload="metadata"><source src="videos/demo/1_animal3_wolf.mp4" type="video/mp4"></video>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Panel 2: Music ===== -->
+                <div class="slider-panel">
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <div class="video-header">Dizi (Chinese Flute)</div>
+                            <video controls preload="metadata"><source src="videos/demo/2_music_dizi.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Drum</div>
+                            <video controls preload="metadata"><source src="videos/demo/2_music_drum.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Guitar</div>
+                            <video controls preload="metadata"><source src="videos/demo/2_music_guitar.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Piano</div>
+                            <video controls preload="metadata"><source src="videos/demo/2_music_paino.mp4" type="video/mp4"></video>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Panel 3: Transport ===== -->
+                <div class="slider-panel">
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <div class="video-header">Bicycle</div>
+                            <video controls preload="metadata"><source src="videos/demo/3_transport_bycycle.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Jeep</div>
+                            <video controls preload="metadata"><source src="videos/demo/3_transport_motor.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Ship</div>
+                            <video controls preload="metadata"><source src="videos/demo/3_transport_ship.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Train</div>
+                            <video controls preload="metadata"><source src="videos/demo/3_transport_train.mp4" type="video/mp4"></video>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Panel 4: Sport ===== -->
+                <div class="slider-panel">
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <div class="video-header">Skateboard</div>
+                            <video controls preload="metadata"><source src="videos/demo/4_sport_skateboard.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Diving</div>
+                            <video controls preload="metadata"><source src="videos/demo/4_sport_diving.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Skiing</div>
+                            <video controls preload="metadata"><source src="videos/demo/4_sport_ski.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Swimming</div>
+                            <video controls preload="metadata"><source src="videos/demo/4_sport_swim.mp4" type="video/mp4"></video>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Panel 5: Action ===== -->
+                <div class="slider-panel">
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <div class="video-header">Stirring Water</div>
+                            <video controls preload="metadata"><source src="videos/demo/6_action.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Drilling</div>
+                            <video controls preload="metadata"><source src="videos/demo/7_drilling.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Pouring Cereal</div>
+                            <video controls preload="metadata"><source src="videos/demo/6_action2.mp4" type="video/mp4"></video>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="video-header">Water Flow</div>
+                            <video controls preload="metadata"><source src="videos/demo/6_action3.mp4" type="video/mp4"></video>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /.slider-track -->
+        </div><!-- /.slider-viewport -->
+
+        <br>
+        <hr>
+        <br>
+
+        <!-- ============== BENCHMARK: MovieGen ============== -->
+        <div class="row text-center">
+            <div class="col">
+                <h2 class="benchmark-title">Comparison with Baselines on the MovieGen Benchmark</h2>
+                <div class="benchmark-divider"></div>
+                <p class="benchmark-subtitle">
+                    Click any card below to load the full comparison with
+                    <span class="metablue strong">WavFlow (Ours)</span>, MMAudio,
+                    and MovieGen Audio for that scene.
+                </p>
+            </div>
+        </div>
+        <br>
+
+        <div class="benchmark-grid" id="moviegen-grid">
+            <!-- cards inserted by JS -->
+        </div>
+
+        <!-- Modal for case comparison -->
+        <dialog id="benchmark-modal" class="benchmark-dialog">
+            <form method="dialog" class="modal-close-form">
+                <button class="modal-close" aria-label="Close" value="close">&times;</button>
+            </form>
+            <h2 id="modal-title" class="modal-title">Title</h2>
+            <div class="benchmark-divider"></div>
+            <h3 class="modal-subhead">Comparisons with Baselines</h3>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="video-header"><span class="metablue strong">Ours (WavFlow)</span></div>
+                    <video id="modal-wavflow" controls preload="metadata" playsinline></video>
+                </div>
+                <div class="col-md-4">
+                    <div class="video-header">MMAudio</div>
+                    <video id="modal-mmaudio" controls preload="metadata" playsinline></video>
+                </div>
+                <div class="col-md-4">
+                    <div class="video-header">MovieGen Audio</div>
+                    <video id="modal-moviegen" controls preload="metadata" playsinline></video>
+                </div>
+            </div>
+        </dialog>
+
+        <br>
+        <hr>
+        <br>
+
+        <!-- ============== QUANTITATIVE RESULTS ============== -->
+        <div class="row text-center">
+            <div class="col">
+                <h2 class="benchmark-title">Quantitative Results</h2>
+                <div class="benchmark-divider"></div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row text-center">
+            <div class="col">
+                <h3 class="results-subtitle">Evaluation on VGGSound-Test Benchmark</h3>
+            </div>
+        </div>
+
+        <div class="results-table-wrap">
+            <p class="results-caption">
+                Comparison with state-of-the-art methods on VGGSound-Test for video-text-to-audio
+                (VT2A) generation. Lower is better for FD, KL and DeSync; higher is better
+                for IS, IB and CLAP. The best and second-best results are highlighted in
+                <b>bold</b> and <u>underlined</u>, respectively.
+            </p>
+
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>FD<sub>PANNs</sub>&darr;</th>
+                        <th>FD<sub>PaSST</sub>&darr;</th>
+                        <th>KL<sub>PANNs</sub>&darr;</th>
+                        <th>IS<sub>PANNs</sub>&uarr;</th>
+                        <th>IB&uarr;</th>
+                        <th>DeSync&darr;</th>
+                        <th>CLAP&uarr;</th>
+                        <th>Params</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="method">Frieren<sup>&dagger;</sup></td>
+                        <td>11.45</td><td>106.10</td><td>2.73</td><td>12.25</td><td>0.23</td><td>0.85</td><td>0.11</td><td>159M</td>
+                    </tr>
+                    <tr>
+                        <td class="method">V2A-Mapper<sup>&dagger;</sup></td>
+                        <td>8.40</td><td>84.57</td><td>2.69</td><td>12.47</td><td>0.23</td><td>1.23</td><td>0.11</td><td>229M</td>
+                    </tr>
+                    <tr>
+                        <td class="method">HunyuanVideo-Foley<sup>&lowast;</sup></td>
+                        <td>10.53</td><td>97.85</td><td>2.02</td><td>14.99</td><td><u>0.32</u></td><td>0.54</td><td><b>0.23</b></td><td>&mdash;</td>
+                    </tr>
+                    <tr>
+                        <td class="method">MMAudio-L-44.1kHz<sup>&dagger;</sup></td>
+                        <td><b>4.72</b></td><td>60.60</td><td><b>1.65</b></td><td><b>17.40</b></td><td><b>0.33</b></td><td><b>0.44</b></td><td><u>0.22</u></td><td>1.03B</td>
+                    </tr>
+                    <tr class="ours-row">
+                        <td class="method"><span class="metablue strong">WavFlow-M-16kHz</span></td>
+                        <td>6.37</td><td>62.64</td><td>1.68</td><td><u>17.24</u></td><td>0.30</td><td>0.47</td><td>0.21</td><td>624M</td>
+                    </tr>
+                    <tr class="ours-row">
+                        <td class="method"><span class="metablue strong">WavFlow-L-16kHz</span></td>
+                        <td>5.86</td><td><u>59.98</u></td><td><u>1.66</u></td><td><b>17.40</b></td><td>0.31</td><td><b>0.44</b></td><td><u>0.22</u></td><td>1.03B</td>
+                    </tr>
+                    <tr class="ours-row">
+                        <td class="method"><span class="metablue strong">WavFlow-L-44.1kHz</span></td>
+                        <td><u>5.25</u></td><td><b>55.82</b></td><td>1.73</td><td>15.05</td><td>0.31</td><td><u>0.46</u></td><td>0.19</td><td>1.03B</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p class="results-footnote">
+                All methods are evaluated on the same VGGSound test split from the
+                MMAudio benchmark, utilizing original videos and native class labels as
+                captions to ensure a fair comparison. Due to the difference in semantic
+                granularity (sparse labels vs. dense captions), we exclude direct comparisons
+                with models relying on LLM-refined captions.
+                <sup>&dagger;</sup> results taken from the MMAudio paper.
+                <sup>&lowast;</sup> reproduced using their open-source checkpoints on the same test set.
+            </p>
+        </div>
+
+        <br><br>
+
+        <div class="row text-center">
+            <div class="col">
+                <h3 class="results-subtitle">Evaluation on MovieGen-Audio-Bench</h3>
+            </div>
+        </div>
+
+        <div class="results-table-wrap">
+            <p class="results-caption">
+                Reference-free evaluation on MovieGen-Audio-Bench (no ground-truth audio).
+                The best and second-best results are highlighted in <b>bold</b> and
+                <u>underlined</u>, respectively.
+            </p>
+
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Params</th>
+                        <th>Training Data</th>
+                        <th>IS&uarr;</th>
+                        <th>CLAP&uarr;</th>
+                        <th>IB-score&uarr;</th>
+                        <th>DeSync&darr;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="ours-row">
+                        <td class="method"><span class="metablue strong">WavFlow (Ours)</span></td>
+                        <td>1.03B</td>
+                        <td>~11.1K&nbsp;h</td>
+                        <td><b>8.95</b></td>
+                        <td><u>0.28</u></td>
+                        <td>0.24</td>
+                        <td><b>0.77</b></td>
+                    </tr>
+                    <tr>
+                        <td class="method">MMAudio</td>
+                        <td>1.03B</td>
+                        <td>~8.2K&nbsp;h</td>
+                        <td>8.40</td>
+                        <td><u>0.28</u></td>
+                        <td><u>0.27</u></td>
+                        <td><b>0.77</b></td>
+                    </tr>
+                    <tr>
+                        <td class="method">MovieGen</td>
+                        <td>13B</td>
+                        <td>~1,000K&nbsp;h</td>
+                        <td><u>8.89</u></td>
+                        <td><b>0.29</b></td>
+                        <td><b>0.36</b></td>
+                        <td><u>1.00</u></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <!-- ============== BIBTEX ============== -->
+        <div class="row" style="font-size:32px">
+            <div class="col strong">BibTeX</div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <pre class="bibtex">
+@article{zhou2026wavflow,
+  title   = {WavFlow: ...},
+  author  = {Zhou, Feiyan and ...},
+  journal = {arXiv preprint},
+  year    = {2026},
+}</pre>
+            </div>
+        </div>
+
+        <br>
+        <div class="row" style="font-size:14px">
+            <div class="col light text-center">
+                Page template adapted from
+                <a href="https://prismaudio.github.io/">PrismAudio</a> and
+                <a href="https://hkchengrex.github.io/MMAudio/">MMAudio</a>.
+            </div>
+        </div>
+
+        <br><br>
+
+    </div>
+
+    <!-- ============== Slider JS ============== -->
+    <script>
+    (function () {
+        const NUM_PANELS = 6;
+        let current = 0;
+
+        const track = document.querySelector(".slider-track");
+        const buttons = document.querySelectorAll(".tab-btn");
+        const panels = document.querySelectorAll(".slider-panel");
+
+        function pauseAllVideos() {
+            document.querySelectorAll(".slider-track video").forEach(v => {
+                if (!v.paused) v.pause();
+            });
+        }
+
+        function goTo(idx) {
+            current = (idx + NUM_PANELS) % NUM_PANELS;
+            track.style.transform = "translateX(" + (-current * 100) + "%)";
+
+            buttons.forEach((b, i) => b.classList.toggle("active", i === current));
+            panels.forEach((p, i) => p.classList.toggle("active", i === current));
+
+            pauseAllVideos();
+        }
+
+        buttons.forEach(btn => {
+            btn.addEventListener("click", () => goTo(parseInt(btn.dataset.idx, 10)));
+        });
+
+        document.querySelector(".slider-prev").addEventListener("click", () => goTo(current - 1));
+        document.querySelector(".slider-next").addEventListener("click", () => goTo(current + 1));
+
+        // Keyboard arrow keys
+        document.addEventListener("keydown", (e) => {
+            const tag = (document.activeElement && document.activeElement.tagName) || "";
+            if (tag === "INPUT" || tag === "TEXTAREA") return;
+            if (e.key === "ArrowLeft")  goTo(current - 1);
+            if (e.key === "ArrowRight") goTo(current + 1);
+        });
+
+        // Touch swipe (basic)
+        let touchStartX = 0;
+        track.addEventListener("touchstart", e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+        track.addEventListener("touchend", e => {
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1));
+        });
+
+        goTo(0);
+    })();
+    </script>
+
+    <!-- ============== Benchmark grid + modal JS ============== -->
+    <script>
+    (function () {
+        // First 9 cases (case10 dropped per user request)
+        const cases = [
+            { id: 1, label: "Eating Apple"        },
+            { id: 2, label: "Penguin Walking"     },
+            { id: 3, label: "Boxing"              },
+            { id: 4, label: "Horse Trotting"      },
+            { id: 5, label: "Bear"                },
+            { id: 6, label: "Firework"            },
+            { id: 7, label: "Dog Drinking"        },
+            { id: 8, label: "Car Approaching"     },
+            { id: 9, label: "Rubbing Plastic Bag" },
+            { id: 10, label: "Cat Playing"        },
+            { id: 11, label: "People Laughing"    },
+            { id: 12, label: "Baby Grunting"      },
+            { id: 13, label: "Reading Newspaper"  },
+            { id: 14, label: "Playing Games"      },
+            { id: 15, label: "Clock"              },
+        ];
+
+        function pad2(n) { return n < 10 ? "0" + n : "" + n; }
+        function casePath(idx, model) {
+            return "videos/moviegen/case" + pad2(idx) + "_" + model + ".mp4";
+        }
+
+        // ----- Build the 3x3 grid -----
+        const grid = document.getElementById("moviegen-grid");
+        cases.forEach(c => {
+            const card = document.createElement("div");
+            card.className = "benchmark-card";
+            card.dataset.case = c.id;
+            card.innerHTML = `
+                <div class="card-video-wrap">
+                    <video class="card-video" muted preload="metadata" playsinline
+                           src="${casePath(c.id, "wavflow")}"></video>
+                </div>
+                <div class="card-label">${c.label}</div>
+            `;
+            grid.appendChild(card);
+
+            const vid = card.querySelector("video");
+            // Hover plays preview muted, mouseleave pauses + resets
+            card.addEventListener("mouseenter", () => {
+                vid.currentTime = 0;
+                vid.play().catch(() => {});
+            });
+            card.addEventListener("mouseleave", () => {
+                vid.pause();
+                vid.currentTime = 0;
+            });
+            card.addEventListener("click", () => openModal(c));
+        });
+
+        // ----- Modal logic (native <dialog>) -----
+        const modal     = document.getElementById("benchmark-modal");
+        const titleEl   = document.getElementById("modal-title");
+        const players = {
+            wavflow:  document.getElementById("modal-wavflow"),
+            mmaudio:  document.getElementById("modal-mmaudio"),
+            moviegen: document.getElementById("modal-moviegen"),
+        };
+
+        function openModal(c) {
+            titleEl.textContent = c.label;
+            for (const [m, v] of Object.entries(players)) {
+                v.pause();
+                v.src = casePath(c.id, m);
+                v.load();
+            }
+            // Native modal: backdrop + ESC handled by browser
+            if (typeof modal.showModal === "function") {
+                modal.showModal();
+            } else {
+                modal.setAttribute("open", "");
+            }
+        }
+
+        // Native <dialog> fires "close" event when closed (X button submits
+        // form method="dialog" -> dialog closes -> close event fires here)
+        modal.addEventListener("close", () => {
+            for (const v of Object.values(players)) {
+                v.pause();
+            }
+        });
+
+        // (No outside-click-to-close handler. Use the X button or ESC.)
+    })();
+    </script>
+
+</body>
+</html>

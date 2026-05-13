@@ -1,0 +1,33 @@
+# VT2A feature extraction config
+# Reads a local CSV manifest with columns: id, audio_path, video_path, caption
+# Writes:
+#   <output.pth_dir>/<id>.pth   -> {clip_features (T_clip,1024), sync_features (T_sync,768), text_features (77,1024)}
+#   <output.csv_path>           -> id, audio_path, features_path, video_exist, text_exist
+#                                  (features_path auto-computed relative to csv_path)
+#
+# Run:
+#   bash run_extract_vt2a.sh
+
+data:
+  csv_path: "/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/features/vt2a_feature.csv"
+  data_root: "/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples"
+
+model:
+  clip_model_name: "ViT-H-14-378-quickgelu"
+  clip_pretrained: "/home/feiyanzhou/data/ext-weights/open_clip_pytorch_model.bin"
+  synchformer_ckpt: "/home/feiyanzhou/data/ext-weights/synchformer_state_dict.pth"
+
+output:
+  pth_dir: "/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/features/vt2a"
+  csv_path: "/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/train_vt2a.csv"
+
+extraction:
+  duration_sec: 8.0
+  target_sample_rate: 16000
+  batch_size: 4
+  num_workers: 2
+  save_interval: 16
+  seed: 14159265
+
+comm:
+  init_timeout_seconds: 1800

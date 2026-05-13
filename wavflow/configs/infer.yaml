@@ -1,0 +1,45 @@
+# Wavflow inference config. Inherits shared params (model name, data shape,
+# sampling.prediction_type / noise_shift) from base.yaml.
+#
+# Reads a CSV manifest with columns:
+#   video_path, caption, video_exist, text_exist
+#   (optional: id — if missing, derived from video_path stem or row index)
+# Pipeline:
+#   1. For each row, extract CLIP+Synchformer+CLIP-text features on the fly
+#      (or use empty learned tokens when video_exist=0 / text_exist=0).
+#   2. Run flow-matching ODE with classifier-free guidance.
+#   3. Save generated audio as <output.output_dir>/<id>.wav.
+
+_base_: base.yaml
+
+model:
+  # ----- feature extractors (same as extract_vt2a.yaml) -----
+  clip_model_name: "ViT-H-14-378-quickgelu"
+  clip_pretrained: "/home/feiyanzhou/data/ext-weights/open_clip_pytorch_model.bin"
+  synchformer_ckpt: "/home/feiyanzhou/data/ext-weights/synchformer_state_dict.pth"
+
+  # ----- WavFlow generator -----
+  ckpt_path: "/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/output/text_wavflow0510/checkpoint_latest.pth"
+  use_ema: false              # set true only when EMA has had enough steps to converge
+                              # (EMA decay 0.9999 → needs ~10k+ steps to be meaningful)
+
+data:
+  csv_path: "/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/infer_example.csv"
+
+# FlowMatching params used during inference (extends shared base.yaml -> sampling).
+sampling:
+  method: euler               # "euler" or "adaptive"
+  num_steps: 50
+  noise_scale: 1.0
+
+inference:
+  cfg: 4.5                    # classifier-free guidance strength
+  batch_size: 4
+  seed: 14159265
+  trim_to_duration: true      # if true, output wav is trimmed to data.audio_duration
+                              # (otherwise full audio_seq_len*audio_dim/sample_rate seconds)
+
+output:
+  output_dir: "/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/output/infer"
+  loudness_norm: true
+  loudness_target_lufs: -23.0

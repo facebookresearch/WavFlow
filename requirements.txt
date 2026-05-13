@@ -1,0 +1,40 @@
+# WavFlow runtime requirements
+# Install in a fresh conda env (Python >=3.10) like:
+#   conda create -n wavflow python=3.10 -y && conda activate wavflow
+#   pip install -r requirements.txt
+#
+# NOTE on PyTorch:
+#   The pinned versions below are CUDA 11.8 builds. If you have a different
+#   CUDA, install torch / torchaudio / torchvision yourself from
+#   https://pytorch.org/get-started/locally/ first, then run this requirements
+#   file with --no-deps for the torch lines.
+
+# ---- Core ML ----
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch==2.7.1+cu118
+torchaudio==2.7.1+cu118
+torchvision==0.22.1+cu118
+torchdiffeq==0.2.5
+
+# ---- Numerics / data ----
+numpy==2.2.6
+pandas==2.3.3
+scipy==1.15.3
+einops==0.8.2
+
+# ---- Models / encoders ----
+timm==1.0.27
+open_clip_torch==3.3.0
+
+# ---- Audio ----
+pyloudnorm==0.2.0
+
+# ---- Config / utilities ----
+omegaconf==2.3.0
+tqdm==4.67.3
+pillow==12.1.1
+PyYAML==6.0.3
+
+# ---- HuggingFace hub (for pretrained weights) ----
+huggingface_hub==1.14.0
+safetensors==0.7.0

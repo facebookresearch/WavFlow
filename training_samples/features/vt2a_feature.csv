@@ -1,0 +1,5 @@
+id,audio_path,video_path,caption
+sample1,wav/sample1.wav,video/sample1.mp4,"whistling rocket propels upward with increasing pitch, and sharp explosion with loud crackling and sizzling."
+sample2,wav/sample2.wav,video/sample2.mp4,sound of waddling footsteps in snow.
+sample3,wav/sample3.wav,video/sample3.mp4,juicy crunches of the apple being bitten into and chewed on.
+sample4,wav/sample4.wav,video/sample4.mp4,drumsticks strike the drumheads with loud thuds and sharp cracks.

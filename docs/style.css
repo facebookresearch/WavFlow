@@ -1,0 +1,493 @@
+/**
+ * (c) Meta Platforms, Inc. and affiliates. Confidential and proprietary.
+ */
+
+body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 400;
+    color: #222;
+    max-width: 1100px;
+}
+
+video {
+    width: 100%;
+    height: auto;
+    background: #000;
+    border-radius: 0 0 4px 4px;
+    display: block;
+}
+
+.strong { font-weight: 700; }
+.light  { font-weight: 300; }
+.heavy  { font-weight: 900; }
+
+.metablue { color: #0064E0; }
+
+.affiliation {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.affiliation-logo {
+    height: 24px;
+    width: auto;
+    object-fit: contain;
+    vertical-align: middle;
+}
+.affiliation-logo--lg {
+    height: 40px;
+}
+
+/* ============== Split link buttons (Paper / Code) ============== */
+.link-btns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin: 16px 0;
+}
+
+.split-btn {
+    display: inline-flex;
+    align-items: stretch;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none !important;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+.split-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+}
+
+.split-btn__left,
+.split-btn__right {
+    padding: 10px 18px;
+    color: #fff !important;
+    display: inline-flex;
+    align-items: center;
+}
+.split-btn__left {
+    background: #4a4a4a;
+}
+
+/* Paper button: blue outline + grey "Paper" + coral "PDF" */
+.split-btn--paper {
+    border: 2px solid #0064E0;
+    border-radius: 10px;
+}
+.split-btn__right--paper {
+    background: #d96a4a;
+}
+
+/* Code button: grey "GitHub" + black "Code" */
+.split-btn__right--code {
+    background: #111;
+}
+
+/* Title hero with background image */
+.title-hero {
+    width: 100%;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.50), rgba(255, 255, 255, 0.85)),
+        url("images/project.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 260px 16px 90px 16px;
+    margin-bottom: 0;
+}
+.title-hero__inner {
+    max-width: 1500px;
+    margin: 0 auto;
+    text-align: center;
+}
+.title-hero__title {
+    /* fluid font: scales with viewport width to keep it on one line */
+    font-size: clamp(24px, 4.2vw, 60px);
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0;
+    color: #1a1a1a;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+}
+.title-hero__title .metablue {
+    color: #0064E0;
+}
+@media (max-width: 720px) {
+    .title-hero { padding: 100px 12px 60px 12px; }
+    .title-hero__title { white-space: normal; font-size: 24px; }
+}
+
+/* Abstract overview figure: 60% of container width */
+.overview-figure {
+    width: 80%;
+    height: auto;
+    max-width: 100%;
+}
+
+a:link, a:visited {
+    color: #05538f;
+    text-decoration: none;
+}
+a:hover { color: #63cbdd; }
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.5), rgba(0,0,0,0));
+}
+
+p.abstract {
+    font-size: 22px;
+    line-height: 1.7;
+    text-align: justify;
+}
+p.abstract b {
+    color: #1a1a1a;
+    font-weight: 700;
+}
+p.abstract .metablue {
+    font-size: 28px !important;
+    line-height: 1;
+}
+
+p.caption {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+    margin-top: 8px;
+}
+
+.video-header {
+    background-color: #f2f2f2;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 6px;
+    border-radius: 4px 4px 0 0;
+}
+
+pre.bibtex {
+    background: #f6f8fa;
+    padding: 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    overflow-x: auto;
+}
+
+/* ============== Sliding category tabs ============== */
+
+.tab-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin: 16px 0;
+}
+
+.tab-btn {
+    padding: 10px 18px;
+    border: 1px solid #c0c0c0;
+    background: #fff;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.1s;
+    white-space: nowrap;
+}
+.tab-btn:hover {
+    background: #e8f1fa;
+    border-color: #05538f;
+    color: #05538f;
+}
+.tab-btn.active {
+    background: #05538f;
+    border-color: #05538f;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(5, 83, 143, 0.25);
+}
+
+.slider-viewport {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #fafafa;
+    padding: 16px 0;
+}
+
+.slider-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: transform;
+}
+
+.slider-panel {
+    flex: 0 0 100%;
+    min-width: 100%;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+/* Side arrows for prev/next category */
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.92);
+    color: #05538f;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transition: background 0.15s, transform 0.15s;
+}
+.slider-arrow:hover {
+    background: #05538f;
+    color: #fff;
+    transform: translateY(-50%) scale(1.06);
+}
+.slider-prev { left: 6px; }
+.slider-next { right: 6px; }
+
+/* ============== Benchmark grid (3x3 cards) ============== */
+
+.benchmark-title {
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+}
+
+.benchmark-divider {
+    width: 80px;
+    height: 3px;
+    margin: 8px auto 16px auto;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #05538f 0%, #2cd4d9 100%);
+}
+
+.benchmark-subtitle {
+    font-size: 16px;
+    color: #666;
+    font-style: italic;
+    margin: 8px 0 24px 0;
+    line-height: 1.6;
+}
+
+.benchmark-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+@media (max-width: 720px) {
+    .benchmark-grid { grid-template-columns: 1fr; }
+}
+@media (min-width: 721px) and (max-width: 980px) {
+    .benchmark-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.benchmark-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+.benchmark-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(5, 83, 143, 0.18);
+}
+
+.card-video-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    overflow: hidden;
+}
+.card-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none; /* clicks fall through to the card */
+}
+
+.card-label {
+    padding: 16px 12px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+}
+
+/* ============== Modal (native <dialog>) ============== */
+
+.benchmark-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+    max-width: 1100px;
+    width: calc(100% - 32px);
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    padding: 32px 28px;
+    background: #fff;
+    color: #222;
+}
+.benchmark-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.modal-close-form {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    margin: 0;
+}
+
+.modal-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: #888;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.15s, color 0.15s;
+}
+.modal-close:hover {
+    background: #f2f2f2;
+    color: #222;
+}
+
+.modal-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin: 0 0 6px 0;
+    text-align: left;
+}
+.benchmark-dialog .benchmark-divider {
+    margin: 6px 0 24px 0;
+}
+
+.modal-subhead {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #05538f;
+    margin: 8px 0 18px 0;
+}
+
+/* ============== Quantitative Results table ============== */
+
+.results-subtitle {
+    color: #0064E0;
+    font-weight: 800;
+    font-size: 24px;
+    text-align: center;
+    margin: 4px 0 20px 0;
+}
+
+.results-table-wrap {
+    background: #f4f8fd;
+    border-radius: 12px;
+    padding: 24px 20px;
+    overflow-x: auto;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+
+.results-caption {
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    margin: 0 0 18px 0;
+    line-height: 1.5;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.results-table th,
+.results-table td {
+    padding: 10px 8px;
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid #e5e9ef;
+}
+.results-table thead th {
+    background: #fafbfc;
+    color: #222;
+    font-weight: 700;
+    font-size: 13px;
+    border-bottom: 2px solid #d8dde6;
+}
+.results-table thead th sub {
+    font-size: 11px;
+    font-weight: 600;
+}
+.results-table td.method {
+    text-align: center;
+    padding-left: 8px;
+    white-space: nowrap;
+    font-weight: 600;
+}
+.results-table tbody tr:nth-child(even) {
+    background: #f8fafd;
+}
+.results-table tbody tr:hover {
+    background: #eef4fb;
+}
+
+/* Highlight our rows */
+.results-table tbody tr.ours-row {
+    background: #e8f1fa !important;
+}
+.results-table tbody tr.ours-row td {
+    color: #1a1a1a;
+}
+
+.results-table b { font-weight: 800; color: #1a1a1a; }
+.results-table u { text-decoration: underline; text-underline-offset: 2px; }
+
+.results-footnote {
+    margin: 16px 4px 0 4px;
+    font-size: 12.5px;
+    color: #555;
+    line-height: 1.55;
+    text-align: left;
+}
+
+/* style.css end */

@@ -1,0 +1,5 @@
+id,audio_path,features_path,video_exist,text_exist
+sample1,/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/wav/sample1.wav,/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/features/t2a/sample1.pth,0,1
+sample3,/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/wav/sample3.wav,/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/features/t2a/sample3.pth,0,1
+sample2,/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/wav/sample2.wav,/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/features/t2a/sample2.pth,0,1
+sample4,/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/wav/sample4.wav,/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/features/t2a/sample4.pth,0,1

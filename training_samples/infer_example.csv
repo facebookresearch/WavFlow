@@ -1,0 +1,5 @@
+video_path,caption,video_exist,text_exist
+/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/video/sample1.mp4,"whistling rocket propels upward with increasing pitch, and sharp explosion with loud crackling and sizzling.",1,1
+/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/video/sample2.mp4,sound of waddling footsteps in snow.,1,1
+/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/video/sample3.mp4,juicy crunches of the apple being bitten into and chewed on.,1,1
+/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/video/sample4.mp4,drumsticks strike the drumheads with loud thuds and sharp cracks.,1,1

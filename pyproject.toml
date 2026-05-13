@@ -1,0 +1,74 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.yapf]
+based_on_style = "pep8"
+indent_width = 4
+column_limit = 100
+
+[tool.isort]
+line_length = 100
+
+[project]
+name = "wavflow"
+version = "1.0.0"
+authors = [{ name = "Feiyan Zhou", email = "zhoufeiyn@gmail.com" }]
+description = "WavFlow: Flowing Through Waveforms for Audio Generation. Generates synchronized audio given video and/or text inputs directly in raw waveform space."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+keywords = [
+  "audio-generation",
+  "video-to-audio",
+  "text-to-audio",
+  "flow-matching",
+  "raw-waveform",
+  "foley",
+]
+classifiers = [
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Multimedia :: Sound/Audio",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  # Core ML
+  "torch >= 2.5.1",
+  "torchaudio",
+  "torchvision",
+  "torchdiffeq >= 0.2.5",
+  # Numerics / data
+  "numpy",
+  "pandas",
+  "scipy",
+  "einops >= 0.6",
+  # Models / encoders
+  "timm >= 1.0.12",
+  "open_clip_torch >= 2.29.0",
+  # Audio
+  "pyloudnorm",
+  # Config / utilities
+  "omegaconf >= 2.3",
+  "tqdm >= 4.66.1",
+  "Pillow >= 9.5",
+  "PyYAML",
+  "requests",
+  # HuggingFace hub (for pretrained weights)
+  "huggingface_hub >= 0.26",
+  "safetensors",
+]
+
+[project.urls]
+Homepage = "https://github.com/facebookresearch/WavFlow"
+Repository = "https://github.com/facebookresearch/WavFlow"
+"Project Page" = "https://facebookresearch.github.io/WavFlow"
+
+[tool.hatch.build.targets.wheel]
+packages = ["wavflow"]

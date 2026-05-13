@@ -1,0 +1,91 @@
+# Training-only config. Inherits shared params (model name, data shape, etc.)
+# from base.yaml.
+
+_base_: base.yaml
+
+experiment_id: text_wavflow0511
+
+model:
+  attn_dropout: 0.0
+  proj_dropout: 0.0
+  class_num: 1000
+
+training:
+  epochs: 1000
+  warmup_steps: 20
+  clip_grad_norm: 1.0
+  batch_size: 2
+  global_batch_size: -1
+  seed: 14159265
+  start_epoch: 0
+  num_workers: 0
+  dataloader_pin_memory: false
+  dataloader_prefetch_factor: 2
+  compile: false
+  gradient_checkpointing: false
+  output_dir: "/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/output"
+  lr: 1.0e-4
+  blr: 5.0e-5
+  min_lr: 0.0
+  lr_schedule: constant
+  lr_schedule_steps: [400]
+  lr_schedule_gamma: 0.1
+  weight_decay: 0.0
+  log_freq: 10
+  gen_train_freq: 50
+  checkpoint_freq: 50
+  checkpoint_save_epoch: 200
+  ema_decay1: 0.9999
+  ema_decay2: 0.9996
+  ema_checkpoint_save_epoch: 200
+  loss_type: "v"              # "x" (x-loss) or "v" (v-loss); train-only
+  label_drop_prob: 0.1
+
+# FlowMatching params used during training (sampling section overrides /
+# extends the shared base.yaml -> sampling block).
+sampling:
+  mean: 0.0
+  scale: 1.0
+  method: euler
+  num_steps: 50
+  noise_scale: 1.0
+
+eval:
+  sampling_method: "euler"
+  num_sampling_steps: 50
+  cfg: 4.5
+  interval_min: 0.0
+  interval_max: 1.0
+  eval_freq: 40
+
+data:
+  csv_path: "/data/repos/fbsource/fbcode/scripts/feiyanzhou/wavflow_project/training_samples/train_vt2a.csv"
+  # Resolves *relative* paths in the csv. Set to null when audio_path /
+  # features_path are already absolute (default for the extract scripts).
+  data_root: null
+
+checkpoint:
+  enable_checkpoint: true
+  folder: checkpoint
+  initial_load_path: null
+  initial_load_model_only: true
+  interval: 5
+  export_dtype: float32
+  keep_latest_k: -1
+  load_step: -1
+
+metrics:
+  disable_color_printing: false
+  compact_logging: true
+
+parallelism:
+  data_parallel_replicate_degree: 1
+  data_parallel_shard_degree: -1
+  tensor_parallel_degree: 1
+  pipeline_parallel_degree: 1
+  context_parallel_degree: 1
+  expert_parallel_degree: 1
+
+comm:
+  init_timeout_seconds: 1800
+  train_timeout_seconds: 7200
