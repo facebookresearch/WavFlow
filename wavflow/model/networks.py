@@ -389,12 +389,12 @@ class WavflowModel(nn.Module):
     ) -> torch.Tensor:
         t = t * torch.ones(len(latent), device=latent.device, dtype=latent.dtype)
 
-        if cfg_strength < 1.0:
-            return self.predict_flow(latent, t, conditions)
-        else:
+        if cfg_strength > 1.0:
             return cfg_strength * self.predict_flow(latent, t, conditions) + (
                 1 - cfg_strength
             ) * self.predict_flow(latent, t, empty_conditions)
+        else:
+            return self.predict_flow(latent, t, conditions)
 
     def load_weights(self, src_dict: dict[str, Any]) -> None:
         if "t_embed.freqs" in src_dict:
